@@ -127,6 +127,33 @@ def findMatches():
                 counter += 1
     print(counter, counter/(16*256) * 100)
 
+
+def modInverse(a, m):
+    a = a % m;
+    for x in range(1, m):
+        if ((a * x) % m == 1):
+            return x
+    return 1
+
+
+def gcd(a, b):
+    if (a == 0):
+        return b
+    return gcd(b % a, a)
+
+
+# A simple method to evaluate
+# Euler Totient Function
+def phi(n):
+    result = 1
+    for i in range(2, n):
+        if (gcd(i, n) == 1):
+            result += 1
+    return result
+
+# Driver Program
+
+
 if __name__ == '__main__':
     # lst = []
     # for i in range(2, 35):
@@ -144,4 +171,6 @@ if __name__ == '__main__':
     # mixColumnsMultiplication()
     # mixColumnsMultiplication()
     # inverseMixColumnsMultiplication()
-    findMatches()
+    # findMatches()
+    print(phi(3*11))
+    print(gcd(32, 7))
