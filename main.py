@@ -1,3 +1,6 @@
+import base64
+import random
+
 def GCD(a, b):
     if b == 0:
         return a
@@ -141,6 +144,42 @@ def gcd(a, b):
         return b
     return gcd(b % a, a)
 
+def decryptRSA129():
+    p = 3490529510847650949147849619903898133417764638493387843990820577
+    q = 32769132993266709549961988190834461413177642967992942539798288533
+
+    totient = (p-1)*(q-1)
+    e = 9007
+    n = 114381625757888867669235779976146612010218296721242362562561842935706935245733897830597123563958705058989075147599290026879543541
+
+    # from stack overflow
+    def egcd(a, b):
+        if a == 0:
+            return (b, 0, 1)
+        else:
+            g, y, x = egcd(b % a, a)
+            return (g, x - (b // a) * y, y)
+
+    def modinv(a, m):
+        g, x, y = egcd(a, m)
+        if g != 1:
+            raise Exception('modular inverse does not exist')
+        else:
+            return x % m
+
+    d = modinv(e,totient)
+    ciphertext = 91045328916998417442482698097341808065794629308863274299915006508648723904695483923175519319873972294295937946793571148693700025
+
+    p = str(pow(ciphertext,d,n))
+    res = ""
+    for i in range(0, len(p), 2):
+      v = p[i:i+2]
+      if v == '00':
+        res +=  ' '
+      else:
+        res += chr(int(v)+97-1)
+
+    print(res)
 
 # A simple method to evaluate
 # Euler Totient Function
@@ -152,6 +191,50 @@ def phi(n):
     return result
 
 # Driver Program
+
+def isPrime(p, s):
+    if p == 2 or p == 3:
+        return True
+
+    elif p % 2 == 0:
+        return False
+
+    for i in range(s):
+        a = random.randint(2, p - 2)
+        if (gcd(a, p) == 1):
+            if pow(a, p - 1) % p != 1:
+                return False
+    return True, p
+
+def isCarmichaelNumber(n):
+    b = 2
+    for i in range(n):
+        if(gcd(b, n) == 1):
+            if pow(b, n - 1) % n != 1:
+                return False
+        b += 1
+    return n, True
+
+def squareAndMultiply(number, exponent):
+   binaryString = str(bin(exponent))[2:]
+   result = 0
+   for i in range(len(binaryString)):
+       if i == 0 and binaryString[0] == '1':
+           result = number
+       elif binaryString[i] == '0':
+           result = result**2
+       elif binaryString[i] == '1':
+           result = (result**2) * number
+   return result
+
+def run():
+    CList = []
+
+    for i in range(1000000):
+        print(i)
+        CList.append(isCarmichaelNumber(1000000))
+    print(CList.pop(-3))
+
 
 
 if __name__ == '__main__':
@@ -172,5 +255,14 @@ if __name__ == '__main__':
     # mixColumnsMultiplication()
     # inverseMixColumnsMultiplication()
     # findMatches()
-    print(phi(3*11))
-    print(gcd(32, 7))
+    # print(phi(55))
+    # print(gcd(32, 7))
+    # print(isPrime(1000000, 3))
+
+
+    import multiprocessing.dummy as mp
+
+
+    if __name__ == "__main__":
+        decryptRSA129()
+
