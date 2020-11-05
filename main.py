@@ -235,7 +235,27 @@ def run():
         CList.append(isCarmichaelNumber(1000000))
     print(CList.pop(-3))
 
+def createCodeBook(e, n):
+    array = []
+    tupleArray = []
+    for i in range(65, 65+26):
+        y = pow(i, e) % n
+        array.append(y)
 
+
+    for i in zip("abcdefghijklmnopqrstuvwxyz", array):
+        tupleArray.append(i)
+
+    return tupleArray
+
+def decryptMessage(codebook, y):
+
+    decryptedArray = []
+    for el in y.split(";"):
+        for i, j in codebook:
+            if str(j) == str(el):
+                decryptedArray.append(i)
+    print("".join(decryptedArray))
 
 if __name__ == '__main__':
     # lst = []
@@ -261,8 +281,56 @@ if __name__ == '__main__':
 
 
     import multiprocessing.dummy as mp
+    #
+    # codeBook = createCodeBook(11, 3763)
+    # y = "2912;2929;3368;153;3222;3335;153;1222"
+    # decryptMessage(codeBook, y)
+
+
+    # firstForm = []
+    # for i in range(1, 17):
+    #     val = str(bin(pow(2, i) + 1))[2:]
+    #     firstForm.append(val)
+    # secondForm = []
+    # for i in range(1, 17):
+    #     val = str(bin(pow(2, i) - 1))[2:]
+    #     secondForm.append(val)
+    # # print(firstForm)
+    # # print(secondForm)
+
+    def countOperations(form, i):
+        if form == "first":
+            val = str(bin(pow(2, i) + 1))[3:]
+            # print(val)
+            countOperations = 0
+            for i in val:
+                if i == '1':
+                    countOperations += 2
+                if i == '0':
+                    countOperations += 1
+            print(countOperations)
+            # print(len(val))
+        else:
+            val = str(bin(pow(2, i) - 1))[3:]
+            # print(val)
+            countOperations = 0
+            for i in val:
+                if i == '1':
+                    countOperations += 2
+                if i == '0':
+                    countOperations += 1
+            print(countOperations)
 
 
     if __name__ == "__main__":
-        decryptRSA129()
+        # decryptRSA129()
+        # countOperations("first", 17)
+        # countOperations("second", 17)
+        # countOperations("first", 101)
+        # countOperations("second", 101)
+        # countOperations("first", 1001)
+        # countOperations("second", 1001)
 
+        codebook = createCodeBook(11, 3763)
+        y = "2912;2929;3368;153;3222;3335;153;1222"
+        print(decryptMessage(codebook, y))

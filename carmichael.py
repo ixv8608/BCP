@@ -2,7 +2,7 @@ import multiprocessing.dummy as mp
 import numpy as np
 import math
 Clist = []
-def carm_math_reorder(num):
+def generateCarmichaelNumber(num):
     if math.gcd(2,num) == 1 and all(math.gcd(k,num) == 1 for k in
                                     range(3, int(round(num**0.5)), 2)):
         return 'Prime'
@@ -12,7 +12,7 @@ def carm_math_reorder(num):
     return 'Composite'  # implicit "else" return
 
 def run():
-    carm_math_reorder(1000000)
+    generateCarmichaelNumber(1000000)
 
 def compute():
     print(2/(np.log(2048)))
