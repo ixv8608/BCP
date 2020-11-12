@@ -15,6 +15,27 @@ def xPowermod(x,m):
     return lst
 
 
+def orderOf(a, m):
+   lst = []
+   if GCD(a, m) != 1:
+       return 0, []
+   value = 1
+   for i in range(1, m + 1):
+       value = (value * a) % m
+       lst.append(value)
+       if value == 1:
+           return i, lst
+
+
+def GCD(a, b):
+   if b == 0:
+       return a
+   else:
+       return GCD(b, a % b)
+
+
+
+
 def decimalToBinary(n):
     if (n > 1):
         # divide with integral result
@@ -257,16 +278,81 @@ def decryptMessage(codebook, y):
                 decryptedArray.append(i)
     print("".join(decryptedArray))
 
-if __name__ == '__main__':
-    # lst = []
-    # for i in range(2, 35):
-    #     if GCD(i, 35) != 1:
-    #         continue
-    #     else:
-    #         period = len(set(xPowermod(i, 35)))
-    #         lst.append((i, period))
-    # print(lst)
+def discreteLogSolver(base, power, mod):
+    count = 0
+    while(True):
+        if pow(base, count, mod) == power:
+            print(count)
+            break
+        count += 1
 
+
+def powmod(x, y, p):
+    res = 1;  # Initialize result
+
+    x = x % p;  # Update x if it is more
+    # than or equal to p
+
+    while (y > 0):
+
+        # If y is odd, multiply x with result
+        if (y & 1):
+            res = (res * x) % p;
+
+            # y must be even now
+        y = y >> 1;  # y = y/2
+        x = (x * x) % p;
+    return res;
+
+def ElGamalDecrypt(key, y, mod):
+    k_m_inverse = modInverse(key, mod)
+    x = (k_m_inverse * y % mod)
+    return x
+
+def printAlphabet(integer):
+    alphabetarray = "abcdefghijklmnopqrstuvwxyz"
+    for i in range(26):
+        if i == integer:
+            print(alphabetarray[i])
+
+
+def applyAlpha(i):
+    k_e = pow(2, i, 29)
+    printAlphabet(k_e)
+
+if __name__ == '__main__':
+    # nums = set()
+    # countGenerators = 0
+    # listGenerators = []
+    # for a in range(999, 4969):
+    #     orderValue, lst = (orderOf(a, 4969))
+    #     # print(a, orderValue, lst)
+    #     if orderValue == 4968:
+    #         countGenerators += 1
+    #         listGenerators.append(a)
+    #     nums.add(orderValue)
+    # print(countGenerators)
+    # print(listGenerators)
+    # print("----------------------------------------------------")
+
+    # for i in range(1, 1000):
+    #    if pow(7, i, 13) == 11:
+    #        print(i)
+    #        break
+
+    # discreteLogSolver(2, 3, 19)
+    # discreteLogSolver(3, 3, 97)
+    # # discreteLogSolver(4, 3, 97)
+    # discreteLogSolver(3, 4, 97)
+    # discreteLogSolver(3, 43, 97)
+    # print(orderOf(28, 29))
+    def solver(returnVal):
+        for i in range(1, 100000):
+            if pow(2, i, 29) == returnVal:
+                return i
+
+
+    # print(modInverse(3, 29))
 
     # value = GFMutliplication("0x1E", "0x37", 256)
     # print(hex(value))
@@ -286,6 +372,37 @@ if __name__ == '__main__':
     # y = "2912;2929;3368;153;3222;3335;153;1222"
     # decryptMessage(codeBook, y)
 
+    # (3, 15), (19, 14), (6, 15), (1, 25), (22, 13), (4, 7),
+    # (13, 25), (3, 21), (18, 12), (26, 4), (7, 12)
+    #
+    print(printAlphabet(ElGamalDecrypt(28, 15, 29)))
+    print(printAlphabet(ElGamalDecrypt(28, 14, 29)))
+    print(printAlphabet(ElGamalDecrypt(28, 15, 29)))
+    print(printAlphabet(ElGamalDecrypt(28, 25, 29)))
+    print(printAlphabet(ElGamalDecrypt(28, 13, 29)))
+    print(printAlphabet(ElGamalDecrypt(28, 7, 29)))
+    print(printAlphabet((ElGamalDecrypt(28, 25, 29))))
+    print(printAlphabet((ElGamalDecrypt(28, 21, 29))))
+    print(printAlphabet((ElGamalDecrypt(28, 12, 29))))
+    print(printAlphabet((ElGamalDecrypt(28, 21, 29))))
+    print(printAlphabet((ElGamalDecrypt(28, 12, 29))))
+    print(printAlphabet((ElGamalDecrypt(28, 4, 29))))
+    print(printAlphabet((ElGamalDecrypt(28, 12, 29))))
+    print("------------------------------------")
+    print(printAlphabet((ElGamalDecrypt(1, 15, 29))))
+    print(printAlphabet((ElGamalDecrypt(1, 14, 29))))
+    print(printAlphabet((ElGamalDecrypt(1, 15, 29))))
+    print(printAlphabet((ElGamalDecrypt(1, 25, 29))))
+    print(printAlphabet((ElGamalDecrypt(1, 13, 29))))
+    print(printAlphabet((ElGamalDecrypt(1, 7, 29))))
+    print(printAlphabet((ElGamalDecrypt(1, 25, 29))))
+    print(printAlphabet((ElGamalDecrypt(1, 21, 29))))
+    print(printAlphabet((ElGamalDecrypt(1, 12, 29))))
+    print(printAlphabet((ElGamalDecrypt(1, 4, 29))))
+    print(printAlphabet((ElGamalDecrypt(1, 12, 29))))
+
+    # for i in range(2, 28):
+    #     print(pow(28, i, 29))
 
     # firstForm = []
     # for i in range(1, 17):
@@ -297,40 +414,45 @@ if __name__ == '__main__':
     #     secondForm.append(val)
     # # print(firstForm)
     # # print(secondForm)
+    #
+    # def countOperations(form, i):
+    #     if form == "first":
+    #         val = str(bin(pow(2, i) + 1))[3:]
+    #         # print(val)
+    #         countOperations = 0
+    #         for i in val:
+    #             if i == '1':
+    #                 countOperations += 2
+    #             if i == '0':
+    #                 countOperations += 1
+    #         print(countOperations)
+    #         # print(len(val))
+    #     else:
+    #         val = str(bin(pow(2, i) - 1))[3:]
+    #         # print(val)
+    #         countOperations = 0
+    #         for i in val:
+    #             if i == '1':
+    #                 countOperations += 2
+    #             if i == '0':
+    #                 countOperations += 1
+    #         print(countOperations)
 
-    def countOperations(form, i):
-        if form == "first":
-            val = str(bin(pow(2, i) + 1))[3:]
-            # print(val)
-            countOperations = 0
-            for i in val:
-                if i == '1':
-                    countOperations += 2
-                if i == '0':
-                    countOperations += 1
-            print(countOperations)
-            # print(len(val))
-        else:
-            val = str(bin(pow(2, i) - 1))[3:]
-            # print(val)
-            countOperations = 0
-            for i in val:
-                if i == '1':
-                    countOperations += 2
-                if i == '0':
-                    countOperations += 1
-            print(countOperations)
 
-
-    if __name__ == "__main__":
-        # decryptRSA129()
-        # countOperations("first", 17)
-        # countOperations("second", 17)
-        # countOperations("first", 101)
-        # countOperations("second", 101)
-        # countOperations("first", 1001)
-        # countOperations("second", 1001)
-
-        codebook = createCodeBook(11, 3763)
-        y = "2912;2929;3368;153;3222;3335;153;1222"
-        print(decryptMessage(codebook, y))
+    # if __name__ == "__main__":
+    #     # decryptRSA129()
+    #     # countOperations("first", 17)
+    #     # countOperations("second", 17)
+    #     # countOperations("first", 101)
+    #     # countOperations("second", 101)
+    #     # countOperations("first", 1001)
+    #     # countOperations("second", 1001)
+    #
+    #     codebook = createCodeBook(11, 3763)
+    #     y = "2912;2929;3368;153;3222;3335;153;1222"
+    #     print(decryptMessage(codebook, y))
+    #
+    #     for i in range(1000000, 0, -3):
+    #         val = isCarmichaelNumber(i)
+    #         print(val)
+    #         break
