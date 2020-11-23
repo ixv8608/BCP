@@ -20,7 +20,7 @@ def compute():
     print(2/(np.log(8192)))
 
 if __name__ == "__main__":
-
+    pass
     # p = mp.Pool(4)
     # p.map(run, range(1000000))  # range(0,1000) if you want to replicate your example
     # p.close()

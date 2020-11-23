@@ -1,5 +1,6 @@
 import base64
 import random
+import math
 
 def GCD(a, b):
     if b == 0:
@@ -315,10 +316,23 @@ def printAlphabet(integer):
         if i == integer:
             print(alphabetarray[i])
 
+def birthdayParadoxNoCollisionProbability(tValue):
+    result = 1
+    for i in range(tValue):
+        result *= 1 - (i/365)
+    print(result)
 
 def applyAlpha(i):
     k_e = pow(2, i, 29)
     printAlphabet(k_e)
+
+def findCollisionProbability(power, percentage):
+    powerProduct = pow(2,(power + 1))
+    naturalLogProduct =  math.log(1 / (1/1 - percentage))
+    numberOfBits = math.log2(math.sqrt(powerProduct * naturalLogProduct))
+    print(numberOfBits, end="\t")
+
+
 
 if __name__ == '__main__':
     # nums = set()
@@ -339,6 +353,27 @@ if __name__ == '__main__':
     #    if pow(7, i, 13) == 11:
     #        print(i)
     #        break
+    # Worksheet 3 Answers:
+    # -------------Question 1------------------
+    birthdayParadoxNoCollisionProbability(10)
+    birthdayParadoxNoCollisionProbability(25)
+    birthdayParadoxNoCollisionProbability(40)
+    print("-----------------------------------")
+    # -------------Question 2------------------
+    findCollisionProbability(64, 0.1)
+    findCollisionProbability(128, 0.1)
+    findCollisionProbability(256, 0.1)
+    print("\n-----------------------------------")
+    # -------------Question 2------------------
+    findCollisionProbability(64, 0.5)
+    findCollisionProbability(128, 0.5)
+    findCollisionProbability(256, 0.5)
+    print("\n-----------------------------------")
+    # -------------Question 2------------------
+    findCollisionProbability(64, 0.99)
+    findCollisionProbability(128, 0.99)
+    findCollisionProbability(256, 0.99)
+    print("\n-----------------------------------")
 
     # discreteLogSolver(2, 3, 19)
     # discreteLogSolver(3, 3, 97)
@@ -346,10 +381,10 @@ if __name__ == '__main__':
     # discreteLogSolver(3, 4, 97)
     # discreteLogSolver(3, 43, 97)
     # print(orderOf(28, 29))
-    def solver(returnVal):
-        for i in range(1, 100000):
-            if pow(2, i, 29) == returnVal:
-                return i
+    # def solver(returnVal):
+    #     for i in range(1, 100000):
+    #         if pow(2, i, 29) == returnVal:
+    #             return i
 
 
     # print(modInverse(3, 29))
@@ -361,7 +396,7 @@ if __name__ == '__main__':
     # mixColumnsMultiplication()
     # inverseMixColumnsMultiplication()
     # findMatches()
-    # print(phi(55))
+    print(phi(55))
     # print(gcd(32, 7))
     # print(isPrime(1000000, 3))
 
@@ -375,31 +410,31 @@ if __name__ == '__main__':
     # (3, 15), (19, 14), (6, 15), (1, 25), (22, 13), (4, 7),
     # (13, 25), (3, 21), (18, 12), (26, 4), (7, 12)
     #
-    print(printAlphabet(ElGamalDecrypt(28, 15, 29)))
-    print(printAlphabet(ElGamalDecrypt(28, 14, 29)))
-    print(printAlphabet(ElGamalDecrypt(28, 15, 29)))
-    print(printAlphabet(ElGamalDecrypt(28, 25, 29)))
-    print(printAlphabet(ElGamalDecrypt(28, 13, 29)))
-    print(printAlphabet(ElGamalDecrypt(28, 7, 29)))
-    print(printAlphabet((ElGamalDecrypt(28, 25, 29))))
-    print(printAlphabet((ElGamalDecrypt(28, 21, 29))))
-    print(printAlphabet((ElGamalDecrypt(28, 12, 29))))
-    print(printAlphabet((ElGamalDecrypt(28, 21, 29))))
-    print(printAlphabet((ElGamalDecrypt(28, 12, 29))))
-    print(printAlphabet((ElGamalDecrypt(28, 4, 29))))
-    print(printAlphabet((ElGamalDecrypt(28, 12, 29))))
-    print("------------------------------------")
-    print(printAlphabet((ElGamalDecrypt(1, 15, 29))))
-    print(printAlphabet((ElGamalDecrypt(1, 14, 29))))
-    print(printAlphabet((ElGamalDecrypt(1, 15, 29))))
-    print(printAlphabet((ElGamalDecrypt(1, 25, 29))))
-    print(printAlphabet((ElGamalDecrypt(1, 13, 29))))
-    print(printAlphabet((ElGamalDecrypt(1, 7, 29))))
-    print(printAlphabet((ElGamalDecrypt(1, 25, 29))))
-    print(printAlphabet((ElGamalDecrypt(1, 21, 29))))
-    print(printAlphabet((ElGamalDecrypt(1, 12, 29))))
-    print(printAlphabet((ElGamalDecrypt(1, 4, 29))))
-    print(printAlphabet((ElGamalDecrypt(1, 12, 29))))
+    # print(printAlphabet(ElGamalDecrypt(28, 15, 29)))
+    # print(printAlphabet(ElGamalDecrypt(28, 14, 29)))
+    # print(printAlphabet(ElGamalDecrypt(28, 15, 29)))
+    # print(printAlphabet(ElGamalDecrypt(28, 25, 29)))
+    # print(printAlphabet(ElGamalDecrypt(28, 13, 29)))
+    # print(printAlphabet(ElGamalDecrypt(28, 7, 29)))
+    # print(printAlphabet((ElGamalDecrypt(28, 25, 29))))
+    # print(printAlphabet((ElGamalDecrypt(28, 21, 29))))
+    # print(printAlphabet((ElGamalDecrypt(28, 12, 29))))
+    # print(printAlphabet((ElGamalDecrypt(28, 21, 29))))
+    # print(printAlphabet((ElGamalDecrypt(28, 12, 29))))
+    # print(printAlphabet((ElGamalDecrypt(28, 4, 29))))
+    # print(printAlphabet((ElGamalDecrypt(28, 12, 29))))
+    # print("------------------------------------")
+    # print(printAlphabet((ElGamalDecrypt(1, 15, 29))))
+    # print(printAlphabet((ElGamalDecrypt(1, 14, 29))))
+    # print(printAlphabet((ElGamalDecrypt(1, 15, 29))))
+    # print(printAlphabet((ElGamalDecrypt(1, 25, 29))))
+    # print(printAlphabet((ElGamalDecrypt(1, 13, 29))))
+    # print(printAlphabet((ElGamalDecrypt(1, 7, 29))))
+    # print(printAlphabet((ElGamalDecrypt(1, 25, 29))))
+    # print(printAlphabet((ElGamalDecrypt(1, 21, 29))))
+    # print(printAlphabet((ElGamalDecrypt(1, 12, 29))))
+    # print(printAlphabet((ElGamalDecrypt(1, 4, 29))))
+    # print(printAlphabet((ElGamalDecrypt(1, 12, 29))))
 
     # for i in range(2, 28):
     #     print(pow(28, i, 29))
@@ -415,38 +450,17 @@ if __name__ == '__main__':
     # # print(firstForm)
     # # print(secondForm)
     #
-    # def countOperations(form, i):
-    #     if form == "first":
-    #         val = str(bin(pow(2, i) + 1))[3:]
-    #         # print(val)
-    #         countOperations = 0
-    #         for i in val:
-    #             if i == '1':
-    #                 countOperations += 2
-    #             if i == '0':
-    #                 countOperations += 1
-    #         print(countOperations)
-    #         # print(len(val))
-    #     else:
-    #         val = str(bin(pow(2, i) - 1))[3:]
-    #         # print(val)
-    #         countOperations = 0
-    #         for i in val:
-    #             if i == '1':
-    #                 countOperations += 2
-    #             if i == '0':
-    #                 countOperations += 1
-    #         print(countOperations)
 
 
     # if __name__ == "__main__":
-    #     # decryptRSA129()
+        # decryptRSA129()
     #     # countOperations("first", 17)
     #     # countOperations("second", 17)
     #     # countOperations("first", 101)
     #     # countOperations("second", 101)
     #     # countOperations("first", 1001)
     #     # countOperations("second", 1001)
+    #
     #
     #     codebook = createCodeBook(11, 3763)
     #     y = "2912;2929;3368;153;3222;3335;153;1222"

@@ -1,6 +1,9 @@
 import multiprocessing.dummy as mp
 import numpy as np
 import math
+
+
+
 Clist = []
 def generateCarmichaelNumber(num):
     if math.gcd(2,num) == 1 and all(math.gcd(k,num) == 1 for k in
@@ -33,4 +36,4 @@ if __name__ == "__main__":
     #     carm_math_reorder(i)
     #
     # print(Clist)
-    gcd(71, 1024)
+    pass
