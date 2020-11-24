@@ -42,14 +42,8 @@ def countSquareAndMultiplyOperations(eValue):
         #         if exponent == '0':
         #             countOperations += 1
         #     print(countOperations)
-        countOperations = 1
-        val = str(bin(eValue))[2:]
-        for i in range(2, len(val)):
-            if val[i] == '1':
-                countOperations+=2
-            if val[i] == '0':
-                countOperations += 1
-        print(countOperations)
+
+        print(int(math.log2(eValue - 1) + 1))
 
 def modInverse(a, m):
     a = a % m
@@ -110,9 +104,11 @@ def isCarmichaelNumber(num):
         CarmichaelNumberList.append(num)
     return 'Composite'  # implicit "else" return
 
-def findAllCarmichaelNumbers(startValue, endValue):
-    for i in range(startValue, endValue):
+def generateCarmichaelNumbers(startValue, endValue, step):
+    for i in range(startValue, endValue, step):
         isCarmichaelNumber(i)
+        # if len(CarmichaelNumberList) == 5:
+        #     break
 
 
 def decryptRSA129():
@@ -152,33 +148,37 @@ def decryptRSA129():
 
     print(res)
 
+def findPrimeForGivenValue(m):
+    return 2/math.log(2**1024)
+
 def isPrime(p, s):
 
     # The number 2 is not composite, it is prime.
     if p == 2:
-        return True
+        return True, p
     # All even numbers are composite, check for them
     elif p % 2 == 0:
-        return False
-    # Check if the
+        return False, p
+    # Verify p is actually prime
     for i in range(1, s):
-        a = random.randint(2, p - 2)
+        a = random.randrange(2, p - 2)
         if pow(a, p - 1) % p != 1:
-            return False
+            return False, p
     return True, p
 
 
 # In practice, it is often desirable to have
 # a DLP in groups with prime cardinality in
 # order to prevent attacks
-def discreteLogSolver(base, power, mod):
+# Solution: x = discrete log of 2 base 3 mod 11
+def discreteLogSolver(num,base, mod):
     count = 0
     for i in range(1, mod - 1):
-        if pow(base, count, mod) == power:
+        if pow(base, count, mod) == num:
             print(count)
-            break
+            return
         count += 1
-    Exception("Solution Does Not Exist")
+    print("Solution Does Not Exist")
 
 
 # P should have a similar length as
@@ -188,9 +188,15 @@ def computeB_Diffe_Hellman(p, b, alpha):
     B = pow(alpha, b, p)
     return B
 
+def computeSessionKey(a, b, p, alpha):
+    B = k_b = pow(alpha, b, p)
+    A = k_a = pow(alpha, a, p)
+
+    k_ab = pow(B, a, p)
+    print("shared key is", k_ab, "Common keys are", "k_a =", k_a, "k_b =", k_b)
+
 def computeA_Diffe_Hellman(p, a, alpha):
     A = pow(alpha, a, p)
-    # k = pow(B, a, p)
     return A
 
 
@@ -212,6 +218,28 @@ def findCollisionProbability(power, percentage):
     numberOfBits = math.log2(math.sqrt(powerProduct * naturalLogProduct))
     print(numberOfBits, end="\t")
 
+def tValueOutput(nValue, lamValue):
+    powerProduct = pow(2,(nValue + 1))
+    naturalLogProduct =  math.log(1 / (1/1 - lamValue))
+    return math.sqrt(powerProduct * naturalLogProduct)
+
+
+def countGeneratorsBetweenLowerUpper(startValue, b):
+    nums = set()
+    countGenerators = 0
+    listGenerators = []
+    for a in range(startValue, b):
+        orderValue, lst = (orderOf(a, b))
+        if orderValue == b - 1:
+            countGenerators += 1
+            listGenerators.append(a)
+        nums.add(orderValue)
+    print(countGenerators)
+    print(listGenerators)
+
+def howManyRandomPrimeNumbers(moduloSize):
+    return round(moduloSize/2 * math.log(2) / 2)
+
 def birthdayParadoxNoCollisionProbability(tValue):
     # result = 1
     # for i in range(tValue):
@@ -224,20 +252,63 @@ if __name__ == '__main__':
     # findAllCarmichaelNumbers(1, 500)
     # print(CarmichaelNumberList)
     # computeInverseFermat(2, 7)
-    eValue = modInverse(7, phi(3*11))
-    yValue = encryptRSA(5, eValue, 3, 11)
-    xValue = decryptRSA(yValue, 7, 3, 11)
+    # eValue = modInverse(7, phi(3*11))
+    # yValue = encryptRSA(5, eValue, 3, 11)
+    # xValue = decryptRSA(yValue, 7, 3, 11)
+    # print("Y value is", yValue, "X value is", xValue)
+    #
+    # dValue = modInverse(3, phi(5*11))
+    # yValue = encryptRSA(9, 3, 5, 11)
+    # xValue = decryptRSA(yValue, dValue, 5, 11)
+    # print("Y value is", yValue, "X value is", xValue)
+    #
+    # generateCarmichaelNumbers(10**6, 1, -1)
+    # generateCarmichaelNumbers(10**7, 1, -1)
+    # print("OK generated")
+    print(len(CarmichaelNumberList))
 
     # chineaseRemainderTheorem(1, 0, 13, 17)
     # chineaseRemainderTheorem(0, 1, 13, 17)
     # chineaseRemainderTheorem(4,5, 13, 17)
     # chineaseRemainderTheorem(5,4, 13, 17)
 
-    countSquareAndMultiplyOperations(2048)
+    # countSquareAndMultiplyOperations(2048)
     # for i in [5413, 81083,14699,21569,68279,54721,33589,4153,4339,26497]:
     #     print(isPrime(i, 15))
-    discreteLogSolver(2, 36, 47)
-    birthdayParadoxNoCollisionProbability(10)
 
-    AValue = print(computeA_Diffe_Hellman(29, 5, 2))
-    kValue = print(computeB_Diffe_Hellman(29, 12, 2))
+    # birthdayParadoxNoCollisionProbability(10)
+
+    # AValue = print(computeA_Diffe_Hellman(29, 5, 2))
+    # kValue = print(computeB_Diffe_Hellman(29, 12, 2))
+    #
+    discreteLogSolver(2, 3, 11)
+    discreteLogSolver(3, 2, 19)
+    discreteLogSolver(3, 3, 97)
+    discreteLogSolver(3, 4, 97)
+    discreteLogSolver(4, 3, 97)
+    discreteLogSolver(43, 3, 97)
+
+    # computeSessionKey(3, 5, 467, 2)
+    # computeSessionKey(400, 134, 467, 2)
+    # computeSessionKey(228, 57, 467, 2)
+    # computeSessionKey(400, 134, 467, 4)
+    #
+    print(tValueOutput(256, 10**-5))
+    # countSquareAndMultiplyOperations(65537)
+
+    # listPrimes = []
+    # for i in range(2**16):
+    #     if i > 1:
+    #         for j in range(2, i):
+    #             if (i % j == 0):
+    #                 break
+    #         else:
+    #             listPrimes.append(i)
+    # print(listPrimes)
+    # print("Check about",howManyRandomPrimeNumbers(2048) , "prime numbers in given modulo size,", 2048)
+    # print("Check about",howManyRandomPrimeNumbers(3072) , "prime numbers in given modulo size,", 3072)
+    # print("Check about",howManyRandomPrimeNumbers(8192) , "prime numbers in given modulo size,",8192 )
+    # computeInverseFermat(4, 7)
+    # computeInverseFermat(5, 12)
+    # computeInverseFermat(6, 13)
+    # countGeneratorsBetweenLowerUpper(1001, 3011)

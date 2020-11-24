@@ -264,7 +264,6 @@ def createCodeBook(e, n):
         y = pow(i, e) % n
         array.append(y)
 
-
     for i in zip("abcdefghijklmnopqrstuvwxyz", array):
         tupleArray.append(i)
 
@@ -333,6 +332,26 @@ def findCollisionProbability(power, percentage):
     print(numberOfBits, end="\t")
 
 
+def countOperations(form, exponent):
+    if form == "first":
+        val = str(bin(pow(2, exponent) + 1))[3:]
+        countOperations = 0
+        for exponent in val:
+            if exponent == '1':
+                countOperations += 2
+            if exponent == '0':
+                countOperations += 1
+        print(countOperations)
+    elif form == "second":
+        val = str(bin(pow(2, exponent) - 1))[3:]
+        countOperations = 0
+        for exponent in val:
+            if exponent == '1':
+                countOperations += 2
+            if exponent == '0':
+                countOperations += 1
+        print(countOperations)
+
 
 if __name__ == '__main__':
     # nums = set()
@@ -354,26 +373,26 @@ if __name__ == '__main__':
     #        print(i)
     #        break
     # Worksheet 3 Answers:
-    # -------------Question 1------------------
-    birthdayParadoxNoCollisionProbability(10)
-    birthdayParadoxNoCollisionProbability(25)
-    birthdayParadoxNoCollisionProbability(40)
-    print("-----------------------------------")
-    # -------------Question 2------------------
-    findCollisionProbability(64, 0.1)
-    findCollisionProbability(128, 0.1)
-    findCollisionProbability(256, 0.1)
-    print("\n-----------------------------------")
-    # -------------Question 2------------------
-    findCollisionProbability(64, 0.5)
-    findCollisionProbability(128, 0.5)
-    findCollisionProbability(256, 0.5)
-    print("\n-----------------------------------")
-    # -------------Question 2------------------
-    findCollisionProbability(64, 0.99)
-    findCollisionProbability(128, 0.99)
-    findCollisionProbability(256, 0.99)
-    print("\n-----------------------------------")
+    # # -------------Question 1------------------
+    # birthdayParadoxNoCollisionProbability(10)
+    # birthdayParadoxNoCollisionProbability(25)
+    # birthdayParadoxNoCollisionProbability(40)
+    # print("-----------------------------------")
+    # # -------------Question 2------------------
+    # findCollisionProbability(64, 0.1)
+    # findCollisionProbability(128, 0.1)
+    # findCollisionProbability(256, 0.1)
+    # print("\n-----------------------------------")
+    # # -------------Question 2------------------
+    # findCollisionProbability(64, 0.5)
+    # findCollisionProbability(128, 0.5)
+    # findCollisionProbability(256, 0.5)
+    # print("\n-----------------------------------")
+    # # -------------Question 2------------------
+    # findCollisionProbability(64, 0.99)
+    # findCollisionProbability(128, 0.99)
+    # findCollisionProbability(256, 0.99)
+    # print("\n-----------------------------------")
 
     # discreteLogSolver(2, 3, 19)
     # discreteLogSolver(3, 3, 97)
@@ -396,16 +415,14 @@ if __name__ == '__main__':
     # mixColumnsMultiplication()
     # inverseMixColumnsMultiplication()
     # findMatches()
-    print(phi(55))
+    # print(phi(55))
     # print(gcd(32, 7))
     # print(isPrime(1000000, 3))
 
-
-    import multiprocessing.dummy as mp
-    #
-    # codeBook = createCodeBook(11, 3763)
-    # y = "2912;2929;3368;153;3222;3335;153;1222"
-    # decryptMessage(codeBook, y)
+    codeBook = createCodeBook(11, 3763)
+    print(codeBook)
+    y = "2912;2929;3368;153;3222;3335;153;1222"
+    decryptMessage(codeBook, y)
 
     # (3, 15), (19, 14), (6, 15), (1, 25), (22, 13), (4, 7),
     # (13, 25), (3, 21), (18, 12), (26, 4), (7, 12)
@@ -454,13 +471,13 @@ if __name__ == '__main__':
 
     # if __name__ == "__main__":
         # decryptRSA129()
-    #     # countOperations("first", 17)
-    #     # countOperations("second", 17)
-    #     # countOperations("first", 101)
-    #     # countOperations("second", 101)
-    #     # countOperations("first", 1001)
-    #     # countOperations("second", 1001)
-    #
+    countOperations("first", 17)
+    countOperations("second", 17)
+    countOperations("first", 101)
+    countOperations("second", 101)
+    countOperations("first", 1001)
+    countOperations("second", 1001)
+
     #
     #     codebook = createCodeBook(11, 3763)
     #     y = "2912;2929;3368;153;3222;3335;153;1222"
